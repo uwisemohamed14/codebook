@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Grid, Button } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import PostList from '../postlist/PostList';
 import PostForm from '../postform/PostForm';
+import cuid from 'cuid';
 
-const eventsDash = [
+const postsDash = [
   {
     id: '1',
     title: 'Trip to Tower of London',
@@ -56,7 +57,7 @@ const eventsDash = [
 
 class Dashboard extends Component {
     state = {
-        events: eventsDash,
+        posts: postsDash,
         isOpen: false
     }
 
@@ -65,19 +66,28 @@ class Dashboard extends Component {
             isOpen: !isOpen
         }))       
     }
+
+    handleCreatePost = (newPost) => {
+        newPost.id=cuid();
+        newPost.hostPhotoURL= "/assets/user.png"
+        this.setState(({posts, isOpen}) => ({
+          posts: [...posts, newPost],  //events is destructured from the state at top. Spread opperator ..., creates a new array with all the previous events
+          isOpen: false
+        }))
+    }
     render() {
-        const { events, isOpen } = this.state
+        const { posts, isOpen } = this.state
         return (
                 <Grid>
                     <Grid.Column width={10}>
-                        <PostList events={events}/>
+                        <PostList posts={posts}/>
                     </Grid.Column>
                     <Grid.Column width={6}>
-                        <Button onClick={this.handleIsOpenToggle} class="ui fade animated button blue large">
-                            <div class="hidden content">Post</div>
-                            <div class="visible content"><i aria-hidden="true" class="write icon"></i></div>
-                        </Button>
-                        {isOpen && <PostForm cancelFormButton={this.handleIsOpenToggle} /> }
+                        <button onClick={this.handleIsOpenToggle} class="ui fade animated button blue large">
+                            <div class="visible content">Create Post</div>
+                            <div class="hidden content"><i aria-hidden="true" class="write icon"></i></div>
+                        </button>
+                        {isOpen && <PostForm createPost={this.handleCreatePost} cancelFormButton={this.handleIsOpenToggle} /> }
                         
                     </Grid.Column>
                 </Grid>

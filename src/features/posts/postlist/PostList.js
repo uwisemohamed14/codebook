@@ -1,12 +1,12 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component, Fragment } from 'react';
 import PostListItem from './PostListItem';
 
 class PostList extends Component {
     render() {
         return (
             <Fragment>
-                {this.props.events.map(event => (
-                    <PostListItem key={event.id} event={event}/>
+                {this.props.posts.map(post => (
+                    <PostListItem key={post.id} post={post}/>
                 ))}
                 
             </Fragment>
@@ -14,4 +14,4 @@ class PostList extends Component {
     }
 }
 
-export default PostList
+export default PostList;
