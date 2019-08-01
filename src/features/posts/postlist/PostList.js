@@ -3,10 +3,11 @@ import PostListItem from './PostListItem';
 
 class PostList extends Component {
     render() {
+        const {posts, selectPost, deletePost} = this.props
         return (
             <Fragment>
-                {this.props.posts.map(post => (
-                    <PostListItem key={post.id} post={post}/>
+                {posts.map(post => (
+                    <PostListItem key={post.id} post={post} selectPost={selectPost} deletePost={deletePost} />
                 ))}
                 
             </Fragment>

@@ -3,7 +3,7 @@ import {Segment, Item, Icon, List, Button } from 'semantic-ui-react';
 import PostListLikes from './PostListLikes';
 class PostListItem extends Component {
     render() {
-        const {post} = this.props
+        const {post, selectPost, deletePost} = this.props
         return (    
                      <Segment.Group>
                         <Segment>
@@ -35,7 +35,8 @@ class PostListItem extends Component {
                         </Segment>
                         <Segment clearing>
                           <span>{post.description}</span>
-                          <Button as="a" color="blue" floated="right" content="View" />
+                          <Button onClick={() =>deletePost(post.id)} as="a" color="red" floated="right" content="Delete" />
+                          <Button onClick={() =>selectPost(post)} as="a" color="blue" floated="right" content="View" />
                         </Segment>
                       </Segment.Group>
                     

@@ -10,9 +10,21 @@ class PostForm extends Component {
       hostedBy: ""
 
     }
+    componentDidMount() {
+      if(this.props.selectedPost !== null) {
+        this.setState({
+          ...this.props.selectedPost
+        })
+      }
+    }
     handleFormSubmit = (evt) => {
       evt.preventDefault()
-      this.props.createPost(this.state)
+      if(this.state.id){
+        this.props.updatePost(this.state)
+      }
+      else {
+        this.props.createPost(this.state)
+      }
     }
 
     handleInputChange = (evt) => {
